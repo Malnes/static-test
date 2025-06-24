@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Notification</title>
+  <title>Varsel</title>
   <meta charset="UTF-8">
   <script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js"></script>
   <style>
@@ -17,8 +17,8 @@
   </style>
 </head>
 <body>
-  <h1>Notification v2</h1>
-  <p id="message">Loading...</p>
+  <h1>Varsel</h1>
+  <p id="message">Laster...</p>
 
   <script>
     async function loadMessage() {
@@ -31,15 +31,15 @@
           console.log("Context received:", context);
 
           const msg = context.page.subPageId;
-          document.getElementById('message').textContent = msg || 'No message found.';
+          document.getElementById('message').textContent = msg || 'Varsel ikke funnet.';
         } else {
           // Fallback for browser testing
           const params = new URLSearchParams(window.location.search);
           const text = params.get('text');
-          document.getElementById('message').textContent = text ? decodeURIComponent(text) : 'No message found.';
+          document.getElementById('message').textContent = text ? decodeURIComponent(text) : 'Varsel ikke funnet.';
         }
       } catch (e) {
-        document.getElementById('message').textContent = 'Error loading message.';
+        document.getElementById('message').textContent = 'Feil ved innhenting av varsel.';
         console.error("GetContext error:", e);
       }
     }
