@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notification</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h1>Notification</h1>
+  <p id="message">Loading...</p>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const text = urlParams.get('text');
+    if (text) {
+      document.getElementById('message').textContent = decodeURIComponent(text);
+    } else {
+      document.getElementById('message').textContent = 'No message found.';
+    }
+  </script>
+</body>
+</html>
