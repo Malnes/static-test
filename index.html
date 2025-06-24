@@ -3,19 +3,44 @@
 <head>
   <title>Notification</title>
   <meta charset="UTF-8">
+  <script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    #message {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 <body>
   <h1>Notification</h1>
   <p id="message">Loading...</p>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const text = urlParams.get('text');
-    if (text) {
-      document.getElementById('message').textContent = decodeURIComponent(text);
-    } else {
-      document.getElementById('message').textContent = 'No message found.';
+    async function loadMessage() {
+      try {
+        if (window.microsoftTeams) {
+          await microsoftTeams.app.initialize();
+          const context = await microsoftTeams.pages.getContext();
+          const msg = context.subEntityId;
+          document.getElementById('message').textContent = msg || 'No message found.';
+        } else {
+          // Fallback for browser testing
+          const params = new URLSearchParams(window.location.search);
+          const text = params.get('text');
+          document.getElementById('message').textContent = text ? decodeURIComponent(text) : 'No message found.';
+        }
+      } catch (e) {
+        document.getElementById('message').textContent = 'Error loading message.';
+        console.error(e);
+      }
     }
+
+    loadMessage();
   </script>
 </body>
 </html>
