@@ -30,7 +30,7 @@
           const context = await microsoftTeams.app.getContext();
           console.log("Context received:", context);
 
-          const msg = context.subEntityId;
+          const msg = context.page.subPageId;
           document.getElementById('message').textContent = msg || 'No message found.';
         } else {
           // Fallback for browser testing
