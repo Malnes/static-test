@@ -55,8 +55,8 @@
 </head>
 <body>
   <div class="card">
-    <h1>Notification</h1>
-    <p id="message">Loading...</p>
+    <h1>Varsel</h1>
+    <p id="message">Laster...</p>
   </div>
 
   <script>
@@ -73,15 +73,15 @@
           }
 
           const msg = context.page?.subPageId;
-          document.getElementById('message').textContent = msg || 'No message found.';
+          document.getElementById('message').textContent = msg || 'Finner ikke varsel.';
         } else {
           // Fallback for browser
           const params = new URLSearchParams(window.location.search);
           const text = params.get('text');
-          document.getElementById('message').textContent = text ? decodeURIComponent(text) : 'No message found.';
+          document.getElementById('message').textContent = text ? decodeURIComponent(text) : 'Finner ikke varsel.';
         }
       } catch (e) {
-        document.getElementById('message').textContent = 'Error loading message.';
+        document.getElementById('message').textContent = 'En feil oppstod :(.';
         console.error("GetContext error:", e);
       }
     }
