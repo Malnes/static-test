@@ -25,7 +25,11 @@
       try {
         if (window.microsoftTeams) {
           await microsoftTeams.app.initialize();
-          const context = await microsoftTeams.pages.getContext();
+          console.log("Teams SDK initialized");
+
+          const context = await microsoftTeams.app.getContext();
+          console.log("Context received:", context);
+
           const msg = context.subEntityId;
           document.getElementById('message').textContent = msg || 'No message found.';
         } else {
@@ -36,7 +40,7 @@
         }
       } catch (e) {
         document.getElementById('message').textContent = 'Error loading message.';
-        console.error(e);
+        console.error("GetContext error:", e);
       }
     }
 
