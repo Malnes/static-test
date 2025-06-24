@@ -1,0 +1,61 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.20/MicrosoftTeams.schema.json",
+  "version": "1.0.0",
+  "manifestVersion": "1.20",
+  "id": "<auto generated guid>",
+  "name": {
+    "short": "Notify",
+    "full": ""
+  },
+  "developer": {
+    "name": "<developer>",
+    "mpnId": "",
+    "websiteUrl": "https://www.<site>.com/",
+    "privacyUrl": "https://www.<site>.com/",
+    "termsOfUseUrl": "https://www.<site>.com/"
+  },
+  "description": {
+    "short": "Notification app",
+    "full": "App to enable teams notification"
+  },
+  "icons": {
+    "outline": "outline.png",
+    "color": "color.png"
+  },
+  "accentColor": "#FFFFFF",
+  "staticTabs": [
+    {
+      "entityId": "main",
+      "name": "main",
+      "contentUrl": "https://malnes.github.io/static-test",
+      "websiteUrl": "https://malnes.github.io/static-test",
+      "scopes": [
+        "personal"
+      ]
+    },
+    {
+      "entityId": "about",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  "validDomains": [
+    "malnes.github.io"
+  ],
+  "webApplicationInfo": {
+    "id": "<app reg clientID with TeamsActivity.Send.User app permission>"
+  },
+  "devicePermissions": [
+    "notifications"
+  ],
+  "activities": {
+    "activityTypes": [
+      {
+        "type": "customNotification",
+        "description": "Custom activity notification",
+        "templateText": "{text}"
+      }
+    ]
+  }
+}
