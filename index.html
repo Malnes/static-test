@@ -1,45 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Varsel</title>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <title>Notification</title>
   <script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 2rem;
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #1b1a19;
+      --card-bg: #f3f2f1;
+      --card-shadow: rgba(0, 0, 0, 0.1);
     }
-    #message {
-      font-size: 1.5rem;
-      margin-top: 1rem;
+
+    [data-theme="dark"] {
+      --bg-color: #1b1a19;
+      --text-color: #ffffff;
+      --card-bg: #2b2a29;
+      --card-shadow: rgba(0, 0, 0, 0.4);
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--card-shadow);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .card h1 {
+      margin-top: 0;
+      font-size: 1.75rem;
+    }
+
+    .card p {
+      font-size: 1.25rem;
+      word-break: break-word;
     }
   </style>
 </head>
 <body>
-  <h1>Varsel</h1>
-  <p id="message">Laster...</p>
+  <div class="card">
+    <h1>Notification</h1>
+    <p id="message">Loading...</p>
+  </div>
 
   <script>
     async function loadMessage() {
       try {
         if (window.microsoftTeams) {
           await microsoftTeams.app.initialize();
-          console.log("Teams SDK initialized");
-
           const context = await microsoftTeams.app.getContext();
           console.log("Context received:", context);
 
-          const msg = context.page.subPageId;
-          document.getElementById('message').textContent = msg || 'Varsel ikke funnet.';
+          // Apply theme
+          if (context.app?.theme) {
+            document.documentElement.setAttribute("data-theme", context.app.theme.toLowerCase());
+          }
+
+          const msg = context.page?.subPageId;
+          document.getElementById('message').textContent = msg || 'No message found.';
         } else {
-          // Fallback for browser testing
+          // Fallback for browser
           const params = new URLSearchParams(window.location.search);
           const text = params.get('text');
-          document.getElementById('message').textContent = text ? decodeURIComponent(text) : 'Varsel ikke funnet.';
+          document.getElementById('message').textContent = text ? decodeURIComponent(text) : 'No message found.';
         }
       } catch (e) {
-        document.getElementById('message').textContent = 'Feil ved innhenting av varsel.';
+        document.getElementById('message').textContent = 'Error loading message.';
         console.error("GetContext error:", e);
       }
     }
